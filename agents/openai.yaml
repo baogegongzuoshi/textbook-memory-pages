@@ -1,0 +1,4 @@
+interface:
+  display_name: "教材图文记忆页"
+  short_description: "把教材变成图文马克笔学习页和A4 PDF"
+  default_prompt: "使用教材图文记忆页技能：按源文件页码或拍照顺序提取、校对并生成适合记忆的图文学习页，最后输出按原顺序排列的 A4 无图像压缩 PDF。"
