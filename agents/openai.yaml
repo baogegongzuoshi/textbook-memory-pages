@@ -1,7 +1,7 @@
 interface:
   display_name: "教材图文记忆页"
-  short_description: "将课本图片或PDF整理成马克笔学习页与A4 PDF"
-  default_prompt: "使用 $textbook-memory-pages：把课本图片、教材 PDF 或拍照页整理成可记忆的马克笔风格图文学习页，并按原顺序输出 A4 无图像压缩 PDF。"
+  short_description: "按学习目标拆解教材，生成讲解、图示、例题页与A4 PDF"
+  default_prompt: "使用 $textbook-memory-pages：按教材内容和学习目标决定每页拆成几张，组合讲解、图示、完整例题、易错分析或练习；先保证学会与内容覆盖，再按原页码顺序输出带页码标识的 A4 PDF。"
 
 policy:
   allow_implicit_invocation: true
