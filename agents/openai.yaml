@@ -1,7 +1,7 @@
 interface:
   display_name: "教材图文记忆页"
   short_description: "按学习目标拆解教材，生成讲解、图示、例题页与A4 PDF"
-  default_prompt: "使用 $textbook-memory-pages：按教材内容和学习目标决定每页拆成几张，组合讲解、图示、完整例题、易错分析或练习；先保证学会与内容覆盖，再按原页码顺序输出带页码标识的 A4 PDF。"
+  default_prompt: "使用 $textbook-memory-pages：直接检查这些教材 PDF/图片，先列完整内容覆盖和页码映射，再按学习目标决定输出页数，制作带原教材页码、分片编号和全局序号的马克笔风格学习页，最后按源页顺序导出 A4 无压缩 PDF。遇到损坏或不支持格式的附件要明确说明；不调用宿主 App 专用模型路由或外部 API Key。"
 
 policy:
   allow_implicit_invocation: true
