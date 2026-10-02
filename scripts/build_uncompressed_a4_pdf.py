@@ -122,19 +122,30 @@ def read_order(order_file, input_dir):
     if not order_file:
         return sorted(input_dir.glob("*.png"), key=lambda p: p.name.lower())
     raw = json.loads(order_file.read_text(encoding="utf-8"))
+    indexed_plan = False
     if isinstance(raw, dict):
         values = raw.get("pages")
         if values is None:
-            # JSON object insertion order is preserved by Python and supports
-            # the manifest shape produced by this skill.
-            values = list(raw.values())
+            values = raw.get("output_plan")
+            indexed_plan = values is not None
+        if values is None:
+            raise ValueError("order file must contain a pages or output_plan list")
     else:
         values = raw
     if not isinstance(values, list):
         raise ValueError("order file must be a JSON list or an object with a pages list")
+    if indexed_plan:
+        if not all(isinstance(item, dict) and "global_output_index" in item for item in values):
+            raise ValueError("each output_plan entry needs a global_output_index")
+        values = sorted(values, key=lambda item: int(item["global_output_index"]))
     paths = []
     for item in values:
-        name = item if isinstance(item, str) else item.get("final_image") or item.get("file") or item.get("path")
+        if isinstance(item, str):
+            name = item
+        elif isinstance(item, dict):
+            name = item.get("final_image") or item.get("file") or item.get("path")
+        else:
+            raise ValueError("each order entry must be a filename or an object")
         if not name:
             raise ValueError("each order entry needs a PNG filename or final_image")
         path = Path(name)
